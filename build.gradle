@@ -3,7 +3,7 @@ plugins {
     id 'application'
 }
 
-group 'dev.raphtalia'
+group 'dev.raphtalia.learnreactor'
 mainClassName = "${group}.Main"
 version '1.0'
 
