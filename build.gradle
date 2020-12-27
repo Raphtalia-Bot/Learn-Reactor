@@ -1,0 +1,17 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group 'dev.raphtalia'
+mainClassName = "${group}.Main"
+version '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "io.projectreactor:reactor-core:3.4.1"
+    testCompile "io.projectreactor:reactor-test:3.4.1"
+}
