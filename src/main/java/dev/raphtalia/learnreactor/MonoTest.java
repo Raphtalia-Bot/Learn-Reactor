@@ -22,7 +22,7 @@ public class MonoTest {
 
     public MonoTest() {
         System.out.println("MonoTest");
-        MonoSubscriberConsumerSubscription();
+        MonoDoOnMethods();
     }
 
     public void MonoSubscriber() {
@@ -76,6 +76,23 @@ public class MonoTest {
         mono.subscribe(s -> System.out.printf("Value is %s\n", s),
                 Throwable::printStackTrace,
                 () -> System.out.println("FINISHED!"),
-                Subscription::cancel);
+                subscription -> subscription.request(5));
+
     }
+
+    public void MonoDoOnMethods() {
+        String name = "Cameron Whyte";
+        Mono<String> mono = Mono.just(name)
+                .log()
+                .map(String::toUpperCase)
+                .doOnSubscribe(subscription -> System.out.println("Subscribed"))
+                .doOnRequest(longNumber -> System.out.println("Request Received, starting doing something..."))
+                .doOnNext(s -> System.out.println("Value is here. Executing doOnNext "+s))
+                .doOnSuccess(s -> System.out.println("doOnSuccess executed"));
+
+        mono.subscribe(s -> System.out.printf("Value is %s\n", s),
+                Throwable::printStackTrace,
+                () -> System.out.println("FINISHED!"));
+    }
+
 }
